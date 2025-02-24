@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Movie Recommender</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #141414;
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        h1 {
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #222;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255, 0, 0, 0.2);
+        }
+
+        .btn-recommend {
+            background-color: red;
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-recommend:hover {
+            background-color: #b30000;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #333;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeIn 0.5s ease-in forwards;
+        }
+
+        .search-btn {
+            background-color: #ffcc00;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .search-btn:hover {
+            background-color: #ff9900;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Netflix Movie Recommendation System 🍿</h1>
+
+    <div class="container">
+        <label for="movie">Select a movie:</label>
+        <input type="text" id="movie" list="movie-list" class="form-control" placeholder="Type a movie name...">
+        <datalist id="movie-list">
+            {% for movie in movies %}
+                <option value="{{ movie }}"></option>
+            {% endfor %}
+        </datalist>
+
+        <button class="btn-recommend mt-3" onclick="getRecommendations()">🎬 Recommend</button>
+
+        <h2 class="mt-4">Recommended Movies:</h2>
+        <ul id="recommendations"></ul>
+    </div>
+
+    <script>
+        function getRecommendations() {
+            let movie = document.getElementById("movie").value;
+
+            if (movie.trim() === "") {
+                alert("Please enter a movie name!");
+                return;
+            }
+
+            $.ajax({
+                url: "/recommend",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ movie: movie }),
+                success: function(response) {
+                    let recommendations = document.getElementById("recommendations");
+                    recommendations.innerHTML = "";
+                    
+                    if (response.length === 0) {
+                        recommendations.innerHTML = "<li>No recommendations found. Try another movie.</li>";
+                        return;
+                    }
+
+                    response.forEach(function(recMovie, index) {
+                        let li = document.createElement("li");
+                        li.innerHTML = `
+                            ${index + 1}. ${recMovie}
+                            <a href="https://www.google.com/search?q=${encodeURIComponent(recMovie)}+Netflix" target="_blank">
+                                <button class="search-btn">🔍 Search</button>
+                            </a>
+                        `;
+                        recommendations.appendChild(li);
+                    });
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
