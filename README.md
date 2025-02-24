@@ -51,7 +51,7 @@ The **Netflix Movie Recommendation System** is a content-based recommendation en
 4. **Recommendation Generation**: Outputs the top similar movies for a given input.
 
 ## 🎥 Demo
-![Netflix Movie Recommendation System](Screenshot from 2025-02-24 16-42-34.png)![Screenshot from 2025-02-24 16-42-34](https://github.com/user-attachments/assets/73d3347f-2c47-4956-85cf-69f13f1d072b)
+![Netflix Movie Recommendation System]![Screenshot from 2025-02-24 16-42-34](https://github.com/user-attachments/assets/73d3347f-2c47-4956-85cf-69f13f1d072b)
 
 
 🎬 **Live Demo**: [Watch Here](https://drive.google.com/file/d/1_xTac8XJxmuTE2e5UJqdxEelDqXC0K_n/view?usp=sharing)
