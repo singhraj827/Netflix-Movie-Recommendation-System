@@ -9,15 +9,6 @@ The **Netflix Movie Recommendation System** is a content-based recommendation en
 - **Cosine Similarity**: Measures the similarity between movie descriptions.
 - **Scalable & Efficient**: Works on a large dataset of movies.
 
-## 🏗️ Project Structure
-```
-├── Netflix Movie Recommendation System.ipynb  # Jupyter Notebook with code & analysis  
-├── dataset/  # Movie dataset (if applicable)  
-├── models/  # Trained machine learning models (if applicable)  
-├── requirements.txt  # List of dependencies  
-├── README.md  # Project documentation  
-```
-
 ## 🛠️ Technologies Used
 - **Python** 🐍
 - **Pandas** 🗃️
